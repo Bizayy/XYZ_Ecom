@@ -20,9 +20,19 @@ import Image from 'next/image'
 //         url: 'https://images.pexels.com/photos/16228425/pexels-photo-16228425/free-photo-of-turkish-tea-in-glass-on-plate.jpeg',
 //     },
 // ]
-const ProductImages = ({ items }: { items: any }) => {
+interface itemType {
+    image: { url: string, height: number, width: number };
+    thumbnail: { url: string, height: number, width: number };
+    mediaType: string;
+    title: string;
+    _id: string;
+}
+const ProductImages = ({ items }: {
+    items: itemType[]
+}) => {
 
     const [index, setIndex] = useState(0);
+    console.log(items);
 
     return (
         // Image container
@@ -39,7 +49,7 @@ const ProductImages = ({ items }: { items: any }) => {
             {/* Smaller Images*/}
             < div className='flex items-center justify-between gap-4 mt-4 cursor-pointer' >
                 {
-                    items.map((item: any, i: number) => (
+                    items.map((item: itemType, i: number) => (
                         <div key={item._id} className='relative w-1/4 h-24 gap-4 mt-7' onClick={() => setIndex(i)}>
                             <Image src={item.image?.url} alt='' fill sizes='30vw' className='object-cover rounded-md' />
                         </div>

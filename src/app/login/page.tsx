@@ -1,6 +1,5 @@
 'use client'
 import { useWixClientHook } from '@/hooks/useWixClientHook';
-import { wixClientServer } from '@/lib/wixClientServer';
 import React, { useState } from 'react'
 import { FaLock, FaUser } from 'react-icons/fa6';
 import { IoMail } from 'react-icons/io5';

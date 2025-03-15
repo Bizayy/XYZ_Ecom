@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 import ProductImages from '../components/productImages'
 import CustomizeComponent from '../components/singlePageDescContainer/customizeComponent'
@@ -17,6 +16,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
     const product = response.items[0];
     console.log(product.productOptions);
+    console.log(product.additionalInfoSections);
 
     return (
         <div className='px-4 md:px-8 lg:px-16 xl:px-20 py-4 relative flex flex-col lg:flex-row gap-14'>
@@ -50,7 +50,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
                 <div className='py-5 border-t border-t-gray-300 flex flex-col items-start gap-4 text-sm font-medium'>
 
-                    {product.additionalInfoSections?.map((section: any) => (
+                    {product.additionalInfoSections?.map((section: { title?: string; description?: string }) => ( // I did section: any but later due to build errors I console logged and found out that it contains title and description.
                         <div key={section.title}>
 
                             <span>{section.title}</span>

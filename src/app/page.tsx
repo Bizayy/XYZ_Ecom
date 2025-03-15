@@ -1,6 +1,5 @@
 // 'use client'
 
-import Image from "next/image";
 import HomepageSlider from "./components/homepageSlider";
 import ProductsList from "./components/productsList";
 import CategoriesSection from "./components/categoriesSection";

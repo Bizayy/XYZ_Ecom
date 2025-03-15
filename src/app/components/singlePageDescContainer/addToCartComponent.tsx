@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-const AddToCartComponent = ({ productId, variantId, stockNumber }: { productId: string; variantId: string; stockNumber: number }) => {
+const AddToCartComponent = ({ stockNumber }: { stockNumber: number }) => {
 
     const [qty, setQty] = useState(1);
 

@@ -5,11 +5,12 @@ import ProductsList from '../components/productsList'
 import { wixClientServer } from '@/lib/wixClientServer'
 
 
-const Page = async ({ searchParams }: { searchParams: any }) => {
+const Page = async ({ searchParams }: { searchParams: Record<string, string> }) => {
 
     const wixClient = await wixClientServer();
     const response = await wixClient.collections.getCollectionBySlug(searchParams.cat || 'all-products');
     console.log(response);
+    console.log(searchParams)
 
     return (
         <div className='px-4 md:px-8 lg:px-16 xl:px-20 relative'>

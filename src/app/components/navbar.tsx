@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import Menu from './menu'
-import Image from 'next/image'
 import Searchbar from './searchbar'
 import NavIcons from './navIcons'
 import { PiShoppingCartFill } from 'react-icons/pi'

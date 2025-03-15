@@ -6,6 +6,7 @@ import { FaRegCircleUser } from 'react-icons/fa6'
 import { IoMdCart } from 'react-icons/io'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import CartModal from './cartModal'
+import { useWixClientHook } from '@/hooks/useWixClientHook'
 
 const NavIcons = () => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -23,10 +24,25 @@ const NavIcons = () => {
         setIsProfileOpen(prev => !prev);
     }
 
+    const wixClient = useWixClientHook();
+
+    const login = async () => {
+        const loginRequestData = wixClient.auth.generateOAuthData(
+            'http://localhost:3000',
+        );
+        console.log(loginRequestData);
+        localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+        const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+        console.log(authUrl)
+        window.location.href = authUrl;
+    }
 
     return (
         <div className='flex items-center gap-6 xl:gap-8 relative'>
-            <FaRegCircleUser size={24} className='cursor-pointer' onClick={handleProfileClick} />
+            <FaRegCircleUser size={24} className='cursor-pointer'
+                // onClick={handleProfileClick}
+                onClick={login}
+            />
             {isProfileOpen && <div className='absolute rounded-md top-9 -left-6 p-4 text-sm shadow-[0_3px_10px_rgb(0,0,0,0.3)] z-10'>
                 <Link href=''>Profile</Link>
                 <div className='mt-2'>Logout</div>

@@ -5,31 +5,32 @@ import { wixClientServer } from '@/lib/wixClientServer';
 import { products } from '@wix/stores';
 import PaginationComponent from './paginationComponent';
 
-const ProductsList = async ({ categoryId, limit, searchParams }: { categoryId: string; limit?: number; searchParams?: any }) => {
+const ProductsList = async ({ categoryId, limit, searchParams }: { categoryId: string; limit?: number; searchParams?: Record<string, string | string> }) => {
 
     const productsPerPage = 8;
-    const awaitedSearchParams = await searchParams; // searchParams must be awaited before using.
     const wixClient = await wixClientServer();
     let productQuery = wixClient.products.
         queryProducts().
-        startsWith("name", awaitedSearchParams?.name || "").
+        startsWith("name", searchParams?.name || "").
         eq('collectionIds', categoryId!).
-        hasSome("productType", awaitedSearchParams?.type ? [awaitedSearchParams.type] : ["physical", "digital"]).
-        gt("priceData.price", awaitedSearchParams?.min || 0).
-        lt("priceData.price", awaitedSearchParams?.max || 999999).
+        hasSome("productType", searchParams?.type ? [searchParams.type] : ["physical", "digital"]).
+        gt("priceData.price", searchParams?.min || 0).
+        lt("priceData.price", searchParams?.max || 999999).
         limit(limit || productsPerPage).
-        skip(awaitedSearchParams?.page ? parseInt(awaitedSearchParams.page) * (limit || productsPerPage) : 0)
+        skip(searchParams?.page ? parseInt(searchParams.page) * (limit || productsPerPage) : 0)
     // .find();
 
-    console.log(productQuery);
+    console.log(searchParams);
 
-    if (awaitedSearchParams?.sort) {
-        const [sortType, sortBy] = awaitedSearchParams.sort.split(" ");
+    if (searchParams?.sort) {
+        const [sortType, sortBy] = searchParams.sort.split(" ");
         console.log(sortType, sortBy)
 
         productQuery =
-            sortType === "asc" ? productQuery.ascending(sortBy) :
-                sortType === "desc" ? productQuery.descending(sortBy) :
+            sortType === "asc" ? productQuery.ascending(sortBy as "_id" | "name" | "slug" | "sku" | "productType" | "price" | "priceData.price" | "numericId" | "lastUpdated") :
+                sortType === "desc" ? productQuery.descending(sortBy as "_id" | "name" | "slug" | "sku" | "productType" | "price" | "priceData.price" | "numericId" | "lastUpdated") :  //type deko natra error dinxa dont overthink about this.
+                    // If want to know why i did this as "_id" | "name" | ... just remove that portion and check whats the error.
+                    // also do this only if youre sure that sortBy variable is always going to one of these types.
                     productQuery;
 
         // if (sortType === 'asc') {
