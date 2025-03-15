@@ -20,11 +20,11 @@ const ProductsList = async ({ categoryId, limit, searchParams }: { categoryId: s
         skip(searchParams?.page ? parseInt(searchParams.page) * (limit || productsPerPage) : 0)
     // .find();
 
-    console.log(searchParams);
+    // console.log(searchParams);
 
     if (searchParams?.sort) {
         const [sortType, sortBy] = searchParams.sort.split(" ");
-        console.log(sortType, sortBy)
+        // console.log(sortType, sortBy)
 
         productQuery =
             sortType === "asc" ? productQuery.ascending(sortBy as "_id" | "name" | "slug" | "sku" | "productType" | "price" | "priceData.price" | "numericId" | "lastUpdated") :
@@ -43,7 +43,6 @@ const ProductsList = async ({ categoryId, limit, searchParams }: { categoryId: s
 
     const response = await productQuery.find();
 
-    console.log(response);
     return (
 
         <div className=''>
