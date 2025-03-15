@@ -17,12 +17,12 @@ const NavIcons = () => {
 
     const router = useRouter();
 
-    const handleProfileClick = () => {
-        if (!isLoggedIn) {
-            router.push("/login")
-        }
-        setIsProfileOpen(prev => !prev);
-    }
+    // const handleProfileClick = () => {
+    //     if (!isLoggedIn) {
+    //         router.push("/login")
+    //     }
+    //     setIsProfileOpen(prev => !prev);
+    // }
 
     const wixClient = useWixClientHook();
 

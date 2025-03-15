@@ -5,7 +5,6 @@ const AddToCartComponent = ({ stockNumber }: { stockNumber: number }) => {
 
     const [qty, setQty] = useState(1);
 
-    const stock = 4;
 
     const handleQty = (v: string) => {
         if (v === '+' && qty < stockNumber) {
@@ -33,8 +32,8 @@ const AddToCartComponent = ({ stockNumber }: { stockNumber: number }) => {
                         <span className='text-xs lg:text-sm'>Product out of stock!</span>
                     ) :
                         <div className='flex flex-col items-start text-xs lg:text-sm'>
-                            <span>Only <span className='text-orange-700'>{stockNumber} items</span> left!</span>
-                            <span>Don't miss it!</span>
+                            <span>Only <span className='text-orange-700'>{stockNumber} items</span> {"left!"}</span>
+                            <span>{"Don't miss it!"}</span>
                         </div>
                     }
                 </div>
