@@ -17,31 +17,31 @@ const NavIcons = () => {
 
     const router = useRouter();
 
-    // const handleProfileClick = () => {
-    //     if (!isLoggedIn) {
-    //         router.push("/login")
-    //     }
-    //     setIsProfileOpen(prev => !prev);
-    // }
+    const handleProfileClick = () => {
+        if (!isLoggedIn) {
+            router.push("/login")
+        }
+        setIsProfileOpen(prev => !prev);
+    }
 
     const wixClient = useWixClientHook();
 
-    const login = async () => {
-        const loginRequestData = wixClient.auth.generateOAuthData(
-            'http://localhost:3000',
-        );
-        console.log(loginRequestData);
-        localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
-        const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
-        console.log(authUrl)
-        window.location.href = authUrl;
-    }
+    // const login = async () => {
+    //     const loginRequestData = wixClient.auth.generateOAuthData(
+    //         'http://localhost:3000',
+    //     );
+    //     console.log(loginRequestData);
+    //     localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+    //     const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+    //     console.log(authUrl)
+    //     window.location.href = authUrl;
+    // }
 
     return (
         <div className='flex items-center gap-6 xl:gap-8 relative'>
             <FaRegCircleUser size={24} className='cursor-pointer'
-                // onClick={handleProfileClick}
-                onClick={login}
+                onClick={handleProfileClick}
+            // onClick={login}
             />
             {isProfileOpen && <div className='absolute rounded-md top-9 -left-6 p-4 text-sm shadow-[0_3px_10px_rgb(0,0,0,0.3)] z-10'>
                 <Link href=''>Profile</Link>
